@@ -8,7 +8,7 @@ class Topic(models.Model):
 
 class Redactor(AbstractUser):
     years_of_experience = models.IntegerField()
-    username = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
