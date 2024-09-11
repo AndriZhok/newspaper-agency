@@ -24,3 +24,5 @@ class NewspaperListView(ListView):
     template_name = "catalog/newspaper_list.html"
 
 
+def logout(request):
+    return render(request, "registration/logged_out.html")
