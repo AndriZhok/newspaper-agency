@@ -1,11 +1,15 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from catalog.forms import NewspaperSearchForm, NewspaperForm
 from catalog.models import Newspaper, Redactor, Topic
 
 
+@login_required
 def index(request: HttpRequest) -> HttpResponse:
     num_newspapers = Newspaper.objects.count()
     num_redactors = Redactor.objects.count()
@@ -19,10 +23,52 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "catalog/index.html", context=context)
 
 
-class NewspaperListView(ListView):
+def logout(request):
+    return render(request, "registration/logged_out.html")
+
+
+class NewspaperListView(LoginRequiredMixin, ListView):
     model = Newspaper
     template_name = "catalog/newspaper_list.html"
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(NewspaperListView, self).get_context_data(**kwargs)
+        title = self.request.GET.get("title", "")
+        context["search_form"] = NewspaperSearchForm(
+            initial={"title": title}
+        )
+        return context
 
-def logout(request):
-    return render(request, "registration/logged_out.html")
+    def get_queryset(self):
+        title = self.request.GET.get("title", None)
+        newspapers = Newspaper.objects.all()
+        if title:
+            return newspapers.filter(title__icontains=title)
+
+        return newspapers
+
+
+class NewspaperDetailView(LoginRequiredMixin, DetailView):
+    model = Newspaper
+    template_name = "catalog/newspaper_list_detail.html"
+
+
+class NewspaperCreateView(LoginRequiredMixin, CreateView):
+    model = Newspaper
+    form_class = NewspaperForm
+    success_url = reverse_lazy("catalog:newspaper-list")
+    template_name = "catalog/newspaper_form.html"
+
+
+class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
+    model = Newspaper
+    form_class = NewspaperForm
+    success_url = reverse_lazy("catalog:newspaper-list")
+    template_name = "catalog/newspaper_form.html"
+
+
+class NewspaperDeleteView(LoginRequiredMixin, DeleteView):
+    model = Newspaper
+    success_url = reverse_lazy("catalog:newspaper-list")
+    template_name = "catalog/newspaper_form_confirm_delete.html"
+

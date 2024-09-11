@@ -1,8 +1,49 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+
 {% block content %}
-  {% csrf_token %}
-  <h1>newspaper list</h1>
-  {% for newspaper in newspaper_list %}
-    <p>{{ newspaper.title }}</p>
-  {% endfor %}
+  <h1>Newspaper list <a class="btn btn-primary" style="float: right" href="{% url 'catalog:newspaper-create' %}">+</a>
+  </h1>
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input class="btn btn-secondary" type="submit" value="📞">
+  </form>
+  {% if newspaper_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Publish data</th>
+        <th>Topic</th>
+      </tr>
+      {% for newspaper in newspaper_list %}
+        <tr>
+          <td>
+            <a href="{{ newspaper.get_absolute_url }}">{{ newspaper.id }}</a>
+          </td>
+          <td>
+            {{ newspaper.title }}
+          </td>
+          <td>
+            {{ newspaper.published_date }}
+          </td>
+          <td>
+            {{ book.topic }}
+          </td>
+          <td>
+            <a href="{% url 'catalog:newspaper-update' pk=newspaper.id %}">
+              Update
+            </a>
+          </td>
+          <td>
+            <a style="color: red"
+               href="{% url 'catalog:newspaper-delete' pk=newspaper.id %}">
+              Delete
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
 {% endblock %}
