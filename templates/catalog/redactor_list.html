@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Redactor list </h1><a class="btn btn-primary" style="float: right" href="{% url 'catalog:redactor-create' %}">+</a>
+      <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input class="btn btn-secondary" type="submit" value="📞">
+  {% if redactor_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Username</th>
+        <th>Years of experience</th>
+      </tr>
+      {% for redactor in redactor_list %}
+        <tr>
+          <td>
+            <a href="{% url 'catalog:redactor-detail' redactor.id %}">Detail</a>
+          </td>
+          <td>
+            {{ redactor.first_name }} {{ redactor.last_name }}
+          </td>
+          <td>
+            {{ redactor.username }}
+          </td>
+          <td>
+            {{ redactor.years_of_experience }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+{% endblock %}

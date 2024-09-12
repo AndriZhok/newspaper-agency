@@ -20,7 +20,7 @@
       {% for newspaper in newspaper_list %}
         <tr>
           <td>
-            <a href="{{ newspaper.get_absolute_url }}">{{ newspaper.id }}</a>
+            <a href="{% url 'catalog:newspaper-detail' newspaper.id %}">Detail</a>
           </td>
           <td>
             {{ newspaper.title }}
@@ -29,18 +29,7 @@
             {{ newspaper.published_date }}
           </td>
           <td>
-            {{ book.topic }}
-          </td>
-          <td>
-            <a href="{% url 'catalog:newspaper-update' pk=newspaper.id %}">
-              Update
-            </a>
-          </td>
-          <td>
-            <a style="color: red"
-               href="{% url 'catalog:newspaper-delete' pk=newspaper.id %}">
-              Delete
-            </a>
+            {{ newspaper.topic }}
           </td>
         </tr>
       {% endfor %}

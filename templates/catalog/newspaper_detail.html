@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Title: {{ newspaper.title }}
+    <a class="btn btn-primary" style="float: right" href="{% url 'catalog:newspaper-update' pk=newspaper.id %}">Update</a>
+    <a class="btn btn-primary" style="float: right" href="{% url 'catalog:newspaper-delete' pk=newspaper.id %}">Delete</a>
+  </h1>
+  <p><strong>Topic: </strong>{{ newspaper.topic }}</p>
+  <p><strong>Published date: </strong>{{ newspaper.published_date }}</p>
+  <div class="ml-3">
+    <h3>Redactors</h3>
+    {% for redactors in newspaper.publishers.all %}
+      <hr>
+      <p class="text-muted">{{ redactors.id }}</p>
+      <p>{{ redactors.first_name }} {{ redactors.last_name }}
+        {% empty %}
+      <p>No redactors</p>
+    {% endfor %}
+  </div>
+  <button type="button" class="btn btn-secondary" onclick="window.history.back();">Exit</button>
+{% endblock %}

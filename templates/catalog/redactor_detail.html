@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="ml-3">
+    <h1>Redactor's newspapers
+      <a class="btn btn-primary" style="float: right" href="{% url 'catalog:redactor-update' pk=redactor.id %}">Update</a>
+      <a class="btn btn-primary" style="float: right" href="{% url 'catalog:redactor-delete' pk=redactor.id %}">Delete</a>
+    </h1>
+    {% for newspaper in redactor.newspaper_set.all %}
+      <hr>
+      <p class="text-muted">{{ newspaper.id }}</p>
+      <p>Newspaper title: {{ newspaper }}</p>
+    {% empty %}
+      <p>No newspapers</p>
+    {% endfor %}
+  </div>
+  <button type="button" class="btn btn-secondary" onclick="window.history.back();">Exit</button>
+
+{% endblock %}

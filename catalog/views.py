@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import NewspaperSearchForm, NewspaperForm
+from catalog.forms import NewspaperSearchForm, NewspaperForm, RedactorForm, RedactorSearchForm
 from catalog.models import Newspaper, Redactor, Topic
 
 
@@ -50,7 +50,7 @@ class NewspaperListView(LoginRequiredMixin, ListView):
 
 class NewspaperDetailView(LoginRequiredMixin, DetailView):
     model = Newspaper
-    template_name = "catalog/newspaper_list_detail.html"
+    template_name = "catalog/newspaper_detail.html"
 
 
 class NewspaperCreateView(LoginRequiredMixin, CreateView):
@@ -72,3 +72,48 @@ class NewspaperDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("catalog:newspaper-list")
     template_name = "catalog/newspaper_form_confirm_delete.html"
 
+
+class RedactorListView(LoginRequiredMixin, ListView):
+    model = Redactor
+    template_name = "catalog/redactor_list.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(RedactorListView, self).get_context_data(**kwargs)
+        username = self.request.GET.get("title", "")
+        context["search_form"] = RedactorSearchForm(
+            initial={"username": username}
+        )
+        return context
+
+    def get_queryset(self):
+        username = self.request.GET.get("username", None)
+        redactors = Redactor.objects.all()
+        if username:
+            return redactors.filter(username__icontains=username)
+
+        return redactors
+
+
+class RedactorDetailView(LoginRequiredMixin, DetailView):
+    model = Redactor
+    template_name = "catalog/redactor_detail.html"
+
+
+class RedactorCreateView(LoginRequiredMixin, CreateView):
+    model = Redactor
+    form_class = RedactorForm
+    success_url = reverse_lazy("catalog:redactor-list")
+    template_name = "catalog/redactor_form.html"
+
+
+class RedactorUpdateView(LoginRequiredMixin, UpdateView):
+    model = Redactor
+    form_class = RedactorForm
+    success_url = reverse_lazy("catalog:redactor-list")
+    template_name = "catalog/redactor_form.html"
+
+
+class RedactorDeleteView(LoginRequiredMixin, DeleteView):
+    model = Redactor
+    success_url = reverse_lazy("catalog:redactor-list")
+    template_name = "catalog/redactor_confirm_delete.html"
