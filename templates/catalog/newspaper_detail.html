@@ -2,8 +2,10 @@
 
 {% block content %}
   <h1>Title: {{ newspaper.title }}
-    <a class="btn btn-primary" style="float: right" href="{% url 'catalog:newspaper-update' pk=newspaper.id %}">Update</a>
-    <a class="btn btn-primary" style="float: right" href="{% url 'catalog:newspaper-delete' pk=newspaper.id %}">Delete</a>
+    <a class="btn btn-primary" style="float: right"
+       href="{% url 'catalog:newspaper-update' pk=newspaper.id %}">Update</a>
+    <a class="btn btn-primary" style="float: right"
+       href="{% url 'catalog:newspaper-delete' pk=newspaper.id %}">Delete</a>
   </h1>
   <p><strong>Topic: </strong>{{ newspaper.topic }}</p>
   <p><strong>Published date: </strong>{{ newspaper.published_date }}</p>

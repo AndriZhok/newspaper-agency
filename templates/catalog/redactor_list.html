@@ -2,10 +2,12 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Redactor list </h1><a class="btn btn-primary" style="float: right" href="{% url 'catalog:redactor-create' %}">+</a>
-      <form method="get" action="" class="form-inline">
+  <h1>Redactor list </h1>
+  <a class="btn btn-primary" style="float: right" href="{% url 'catalog:redactor-create' %}">+</a>
+  <form method="get" action="" class="form-inline">
     {{ search_form|crispy }}
     <input class="btn btn-secondary" type="submit" value="📞">
+  </form>
   {% if redactor_list %}
     <table class="table">
       <tr>
