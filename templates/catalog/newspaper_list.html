@@ -1,38 +1,32 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 
-
 {% block content %}
-  <h1>Newspaper list <a class="btn btn-primary" style="float: right" href="{% url 'catalog:newspaper-create' %}">+</a>
-  </h1>
-  <form method="get" action="" class="form-inline">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Newspaper List</h1>
+    <a class="btn btn-primary" href="{% url 'catalog:newspaper-create' %}" role="button">Create new Newspaper</a>
+  </div>
+  <form method="get" action="" class="form-inline mb-4">
     {{ search_form|crispy }}
-    <input class="btn btn-secondary" type="submit" value="📞">
+    <input class="btn btn-secondary" type="submit" value="🔍">
   </form>
-  {% if newspaper_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Publish data</th>
-        <th>Topic</th>
-      </tr>
-      {% for newspaper in newspaper_list %}
-        <tr>
-          <td>
-            <a href="{% url 'catalog:newspaper-detail' newspaper.id %}">Detail</a>
-          </td>
-          <td>
-            {{ newspaper.title }}
-          </td>
-          <td>
-            {{ newspaper.published_date }}
-          </td>
-          <td>
-            {{ newspaper.topic }}
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
-  {% endif %}
+  <div class="row">
+    {% for newspaper in newspaper_list %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ newspaper.title }}</h5>
+            <p class="card-text">
+              {{ newspaper.content|slice:":100" }}{% if newspaper.content|length > 100 %}...{% endif %}</p>
+            <a href="{% url 'catalog:newspaper-detail' newspaper.id %}" class="btn btn-primary">Detail</a>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Published: {{ newspaper.published_date }}</small>
+            <br>
+            <small class="text-muted">Topic: {{ newspaper.topic.name }}</small>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

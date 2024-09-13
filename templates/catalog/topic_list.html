@@ -1,44 +1,37 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
+
 {% block content %}
-  <h1>Topic's name
-    <a href="{% url 'catalog:topic-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
-  <form method="get" action="" class="form-inline">
-    {{ search_form|crispy }}
-    <input class="btn btn-secondary" type="submit" value="📞">
-  </form>
-  {% if topic_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-      </tr>
-      {% for topic in topic_list %}
-        <tr>
-          <td>
-            {{ topic.id }}
-          </td>
-          <td>
-            {{ topic.name }}
-          </td>
-          <td>
-            <a href="{% url 'catalog:topic-update' pk=topic.id %}">
-              Update
-            </a>
-          </td>
-          <td>
-            <a style="color: red"
-               href="{% url 'catalog:topic-delete' pk=topic.id %}">
-              Delete
-            </a>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
-  {% else %}
-    <p>There are no topic's.</p>
-  {% endif %}
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Topics</h1>
+      <a href="{% url 'catalog:topic-create' %}" class="btn btn-primary">Create</a>
+    </div>
+
+    <form method="get" action="" class="form-inline mb-4">
+      {{ search_form|crispy }}
+      <input class="btn btn-secondary ml-2" type="submit" value="🔍">
+    </form>
+
+    {% if topic_list %}
+      <div class="row">
+        {% for topic in topic_list %}
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ topic.name }}</h5>
+                <p class="card-text">
+                  ID: {{ topic.id }}
+                </p>
+                <a href="{% url 'catalog:topic-update' pk=topic.id %}" class="btn btn-warning mr-2">Update</a>
+                <a href="{% url 'catalog:topic-delete' pk=topic.id %}" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>There are no topics.</p>
+    {% endif %}
+  </div>
 {% endblock %}

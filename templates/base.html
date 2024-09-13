@@ -1,5 +1,8 @@
 <!DOCTYPE "html">
 <html lang="en">
+{% block sidebar %}
+  {% include "includes/sidebar.html" %}
+{% endblock %}
 <link>
 {% block title %}
   <title>Newspaper Agency</title>
@@ -13,21 +16,14 @@
 <body>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3">
-    
-      {% block sidebar %}
-        {% include "includes/sidebar.html" %}
-      {% endblock %}
-    
-    </div>
     <div class="col-sm-9">
-    
+
       {% block content %}
       {% endblock %}
-    
-    {% block pagination %}
-    {% endblock %}
-    
+
+      {% block pagination %}
+      {% endblock %}
+
     </div>
   </div>
 </div>
