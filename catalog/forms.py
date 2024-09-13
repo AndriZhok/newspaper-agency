@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
-from catalog.models import Newspaper, Redactor
+from catalog.models import Newspaper, Redactor, Topic
 
 
 class NewspaperForm(forms.ModelForm):
@@ -55,6 +55,25 @@ class RedactorSearchForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Search by username",
+            }
+        )
+    )
+
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ["name"]
+
+
+class TopicSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by name",
             }
         )
     )

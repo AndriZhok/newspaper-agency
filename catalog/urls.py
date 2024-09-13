@@ -13,6 +13,10 @@ from catalog.views import (
     RedactorCreateView,
     RedactorUpdateView,
     RedactorDeleteView,
+    TopicListView,
+    TopicCreateView,
+    TopicUpdateView,
+    TopicDeleteView
 )
 
 urlpatterns = [
@@ -59,6 +63,22 @@ urlpatterns = [
         "redactor-delete/<int:pk>/",
         RedactorDeleteView.as_view(),
         name="redactor-delete",
+    ),
+    path("topic-list/", TopicListView.as_view(), name="topic-list"),
+    path(
+        "topic-create/",
+        TopicCreateView.as_view(),
+        name="topic-create",
+    ),
+    path(
+        "topic-update/<int:pk>/",
+        TopicUpdateView.as_view(),
+        name="topic-update",
+    ),
+    path(
+        "topic-delete/<int:pk>/",
+        TopicDeleteView.as_view(),
+        name="topic-delete",
     ),
 ]
 

@@ -5,7 +5,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import NewspaperSearchForm, NewspaperForm, RedactorForm, RedactorSearchForm
+from catalog.forms import NewspaperSearchForm, NewspaperForm, RedactorForm, RedactorSearchForm, TopicForm, \
+    TopicSearchForm
 from catalog.models import Newspaper, Redactor, Topic
 
 
@@ -117,3 +118,43 @@ class RedactorDeleteView(LoginRequiredMixin, DeleteView):
     model = Redactor
     success_url = reverse_lazy("catalog:redactor-list")
     template_name = "catalog/redactor_confirm_delete.html"
+
+
+class TopicListView(LoginRequiredMixin, ListView):
+    model = Topic
+    template_name = "catalog/topic_list.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TopicListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = TopicSearchForm(
+            initial={"name": name}
+        )
+        return context
+
+    def get_queryset(self):
+        name = self.request.GET.get("name", None)
+        topics = Topic.objects.all()
+        if name:
+            return topics.filter(name__icontains=name)
+        return topics
+
+
+class TopicCreateView(LoginRequiredMixin, CreateView):
+    model = Topic
+    form_class = TopicForm
+    success_url = reverse_lazy("catalog:topic-list")
+    template_name = "catalog/topic_form.html"
+
+
+class TopicUpdateView(LoginRequiredMixin, UpdateView):
+    model = Topic
+    form_class = TopicForm
+    success_url = reverse_lazy("catalog:topic-list")
+    template_name = "catalog/topic_form.html"
+
+
+class TopicDeleteView(LoginRequiredMixin, DeleteView):
+    model = Topic
+    success_url = reverse_lazy("catalog:topic-list")
+    template_name = "catalog/topic_confirm_delete.html"
