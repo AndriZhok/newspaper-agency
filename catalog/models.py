@@ -24,7 +24,7 @@ class Newspaper(models.Model):
     content = models.TextField()
     published_date = models.DateField(auto_now=True)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    publishers = models.ManyToManyField(Redactor)
+    publishers = models.ManyToManyField(Redactor, related_name="newspapers")
 
     def __str__(self):
         return self.title

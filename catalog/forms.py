@@ -40,7 +40,7 @@ class RedactorForm(forms.ModelForm):
 
 def validate_years_of_experience(
         years_of_experience,
-):  # regex validation is also possible here
+):
     if years_of_experience < 0 or years_of_experience > 100:
         raise ValidationError("Years of experience must be between 0 and 100")
 

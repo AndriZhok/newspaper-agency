@@ -5,8 +5,14 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import NewspaperSearchForm, NewspaperForm, RedactorForm, RedactorSearchForm, TopicForm, \
+from catalog.forms import (
+    NewspaperSearchForm,
+    NewspaperForm,
+    RedactorForm,
+    RedactorSearchForm,
+    TopicForm,
     TopicSearchForm
+)
 from catalog.models import Newspaper, Redactor, Topic
 
 

@@ -41,7 +41,6 @@ class FormsTestCase(TestCase):
         self.redactor = Redactor.objects.create(username="test_redactor", first_name="Test", last_name="Redactor",
                                                 email="test@example.com")
 
-    # NewspaperForm tests
     def test_valid_newspaper_form(self):
         form = NewspaperForm(data=self.__newspaper_form_data(
             title="Test Newspaper",
