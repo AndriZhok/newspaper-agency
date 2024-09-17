@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Topic, Redactor, Newspaper
+
+from catalog.models import Topic, Redactor, Newspaper
 
 
 @admin.register(Topic)
