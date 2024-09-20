@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Redactor List</h1>
+      <a class="btn btn-primary" href="{% url 'catalog:redactor-create' %}">Create New Redactor</a>
+    </div>
+
+    <form method="get" action="" class="form-inline mb-4">
+      {{ search_form|crispy }}
+      <button class="btn btn-secondary ml-2" type="submit">🔍</button>
+    </form>
+
+    <div class="row">
+      {% if redactor_list %}
+        {% for redactor in redactor_list %}
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ redactor.first_name }} {{ redactor.last_name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Username: {{ redactor.username }}</h6>
+                <p class="card-text">Years of Experience: {{ redactor.years_of_experience }}</p>
+                <a href="{% url 'catalog:redactor-detail' redactor.id %}" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12">
+          <p>No redactors found.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

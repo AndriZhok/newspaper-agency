@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Newspaper Agency Home</title>
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="text-center mb-4">
+      <h1 class="display-4">Welcome to the Greatest Newspaper Agency!</h1>
+      <p class="lead">Your one-stop source for all things related to newspapers.</p>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <a href="{% url 'catalog:newspaper-list' %}" class="text-decoration-none">
+          <div class="card bg-info text-white shadow-sm animated-card">
+            <div class="card-body">
+              <h5 class="card-title">Newspapers</h5>
+              <p class="card-text">Total number of newspapers in the system.</p>
+              <h2 class="display-3">{{ num_newspapers }}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mb-4">
+        <a href="{% url 'catalog:redactor-list' %}" class="text-decoration-none">
+          <div class="card bg-success text-white shadow-sm animated-card">
+            <div class="card-body">
+              <h5 class="card-title">Redactors</h5>
+              <p class="card-text">Total number of redactors managing the newspapers.</p>
+              <h2 class="display-3">{{ num_redactors }}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 mb-4">
+        <a href="{% url 'catalog:topic-list' %}" class="text-decoration-none">
+          <div class="card bg-warning text-dark shadow-sm animated-card">
+            <div class="card-body">
+              <h5 class="card-title">Topics</h5>
+              <p class="card-text">Total number of topics covered by the newspapers.</p>
+              <h2 class="display-3">{{ num_topics }}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom CSS for animations and background -->
+  <style>
+      body {
+          background-color: #f8f9fa; /* Light gray background */
+      }
+
+      .animated-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .animated-card:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-body h2 {
+          margin-bottom: 0;
+      }
+  </style>
+{% endblock %}

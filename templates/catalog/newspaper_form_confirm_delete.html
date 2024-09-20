@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <h1 class="card-title mb-4">Delete Newspaper?</h1>
+            <p class="card-text">Are you sure you want to delete the newspaper titled "{{ newspaper.title }}"?</p>
+            <form action="" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-lg mr-2">Yes, Delete</button>
+              <a href="{% url 'catalog:newspaper-list' %}" class="btn btn-secondary btn-lg">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
