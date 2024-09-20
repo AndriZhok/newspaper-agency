@@ -30,10 +30,6 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "catalog/index.html", context=context)
 
 
-def logout(request):
-    return render(request, "registration/logged_out.html")
-
-
 class NewspaperListView(LoginRequiredMixin, ListView):
     model = Newspaper
     template_name = "catalog/newspaper_list.html"

@@ -3,7 +3,6 @@ from django.urls import path, include
 from catalog.views import (
     index,
     NewspaperListView,
-    logout,
     NewspaperDetailView,
     NewspaperCreateView,
     NewspaperUpdateView,
@@ -21,7 +20,6 @@ from catalog.views import (
 
 urlpatterns = [
     path("", index, name="index"),
-    path("logout/", logout, name="logout"),
     path("newspaper-list/", NewspaperListView.as_view(), name="newspaper-list"),
     path(
         "newspaper-detail/<int:pk>/",
