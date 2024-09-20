@@ -11,9 +11,9 @@
     </div>
 
     <div class="mt-4">
-      {% if redactor.newspaper_set.all %}
+      {% if redactor.newspapers.all %}
         <div class="list-group">
-          {% for newspaper in redactor.newspaper_set.all %}
+          {% for newspaper in redactor.newspapers.all %}
             <a href="{% url 'catalog:newspaper-detail' pk=newspaper.id %}"
                class="list-group-item list-group-item-action">
               <div class="d-flex justify-content-between align-items-center">
