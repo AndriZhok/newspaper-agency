@@ -18,6 +18,13 @@ Welcome to our Django-based Newspaper Management System. This project is built t
 
 [Newspaper Agency project deployed to Render](https://newspaper-agency-rele.onrender.com)
 
+#### If you want to visit the page use this:
+```
+login: user
+password: user12345
+```
+
+
 # Installation Instructions
 
 
